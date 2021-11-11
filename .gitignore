@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+# do not commit downloaded datasets
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+# training junk / outputs
+runs/*
+reports/*
+figures/*
+!runs/.gitkeep
+!reports/.gitkeep
+!figures/.gitkeep
