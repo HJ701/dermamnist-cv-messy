@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 from src.data.loader import get_dl
 from src.models.net import DermaNet
 from src.utils.misc import seed, mkdir, pick_device
@@ -17,7 +18,7 @@ def one_epoch(model, dl, opt=None, dev="cpu"):
         else:
             x = x.to(dev)
             y = y.squeeze().long().to(dev)
-            
+
         logits = model(x)
         loss = loss_fn(logits, y)
         if opt:
@@ -48,5 +49,11 @@ def main():
             torch.save(model.state_dict(), "runs/best.pt")
             with open("runs/last.txt","w", encoding="utf-8") as f:
                 f.write("best_val_acc=" + str(best) + "\n")
+    # quick random plot (not real history, sorry)
+    plt.figure()
+    plt.title("best val acc (yeah only 1 point)")
+    plt.plot([0,1], [0, best])
+    plt.savefig("runs/plot.png")
+    plt.close()
 if __name__ == "__main__":
     main()
